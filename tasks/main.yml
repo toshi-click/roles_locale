@@ -1,32 +1,21 @@
 # Debian・Ubuntu向け設定
 - block:
-  - name: "install language-pack-ja-base"
-    package:
-      name: language-pack-ja-base
+  - name: apt install locale packages
+    apt:
+      name: "{{ packages }}"
+      update_cache: yes
+      cache_valid_time: 3600
       state: present
-
-  - name: "install language-pack-ja"
-    package:
-      name: language-pack-ja
-      state: present
-
-  - name: "install ibus-mozc"
-    package:
-      name: ibus-mozc
-      state: present
+    vars:
+      packages:
+        - language-pack-ja-base
+        - language-pack-ja
+        - ibus-mozc
+        - manpages-ja-dev
+        - manpages-ja
 
   - name: "set-locale"
     shell: update-locale LANG=ja_JP.UTF-8
-
-  - name: manpages-ja-dev install
-    package:
-      name: manpages-ja-dev
-      state: present
-
-  - name: manpages-ja install
-    package:
-      name: manpages-ja
-      state: present
 
   # Ubuntu Japanese Teamリポジトリを追加する
   - name: set ubuntu-ja-archive gpg key
