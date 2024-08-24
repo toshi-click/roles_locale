@@ -14,4 +14,4 @@
 - name: "ubuntu-ja repo setting delete"
   ansible.builtin.file:
     path: /etc/apt/sources.list.d/ubuntu-ja.list
-    state=absent
+    state: absent
